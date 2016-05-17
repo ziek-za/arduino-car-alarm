@@ -5,7 +5,7 @@
  * Date:    17-05-2015
  * Car alarm system which couples with the Apollo Tracker and GSM system.
  */
-// #define __DEBUG__
+#define __DEBUG__
 
 #include <SoftwareSerial.h>
 #include "alarm.h"
@@ -47,6 +47,7 @@ void loop() {
      */
     if (analogRead(CIRCUIT_IN) <= 500 || (digitalRead(MOTION_IN) && now - lastToggle >= motionTimeout)) {
       trigger_alarm();
+      lastTriggered = now; // reset timer
     }
   } else if (alarmState == AS_TRIGGERED || alarmState == AS_SILENCED) {
     /* Check for alarm timeout period */
